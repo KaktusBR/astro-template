@@ -1,0 +1,5 @@
+---
+const { class: className, ...props } = Astro.props
+---
+
+<section class="container mx-auto max-w-7xl px-5" class:list={[className]} {...props}><slot /></section>

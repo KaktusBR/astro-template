@@ -1,0 +1,34 @@
+---
+type Props = {
+	currentPage: string
+	totalPosts: number
+	lastPage: number
+}
+
+const { currentPage, totalPosts, lastPage } = Astro.props as Props
+
+function pageNumbers(numberOfPages: number) {
+	const result = []
+
+	for (let i = 0; i < numberOfPages; i++) {
+		result.push({ page: i + 1, slug: '/poradna/' + (i + 1) + '/' })
+	}
+
+	return result
+}
+const pageNumbersArray = pageNumbers(lastPage)
+---
+
+{
+	pageNumbersArray.map((pageNumber) => (
+		<a
+			href={pageNumber.page !== 1 ? pageNumber.slug : '/poradna/'}
+			class={`inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium hover:border-uroBlue-300  ${
+				pageNumber.slug === currentPage + '/' || pageNumber.slug === currentPage + '/1/'
+					? ` !text-slate-300 `
+					: ` !text-uroBlue-300 `
+			}`}>
+			{pageNumber.page}
+		</a>
+	))
+}
